@@ -1,0 +1,47 @@
+<!doctype html>
+
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <title><%= title %></title>
+
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Temporary AngularJS test CSS, remove me please
+  <link href="css/app.css" type="text/css" rel="stylesheet"/>
+  -->
+  <script type="text/javascript" src="/js/angular.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-2.1.1.min.js"></script>
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <!-- This boostraps our Angular App -->
+  <script type="text/javascript" src="/js/app.js"></script>
+
+  <!--X-Editable js and stylesheet -->
+  <link href="/css/bootstrap-editable.css" rel="stylesheet">
+  <script type="text/javascript" src="/js/bootstrap-editable.min.js"></script>
+
+  <!--This is our AngularJS-based WYSIWYG-->
+  <!--Font Awesome is a dependency of Angular WYSIWYG-->
+  <script type="text/javascript" src="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css"></script>
+  <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.3/textAngular.min.css'>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.3/textAngular-sanitize.min.js'></script>
+  <script src='http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.3/textAngular.min.js'></script>
+
+
+</head>
+<body>
+  <div class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">	
+		  <ul class="nav navbar-nav">
+		  	<a class="navbar-brand" href="#">Docs@</a>
+		    <li><a href="/">Home</a></li>
+		    <li><a href="/topic/new">Create</a></li>
+		    <li><a href="/about">About</a></li>
+		  </ul>
+
+  </div>
+  
+  <%= yield %>
+  
+</body>
+</html>

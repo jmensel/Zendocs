@@ -1,0 +1,148 @@
+
+
+<div class="container-fluid">
+  <!--Display an alert on save -->
+  
+  <!-- Fire up our editor -->
+  <script type="text/javascript" src="/js/tinymce/js/tinymce/tinymce.min.js"></script>
+  <script type="text/javascript">
+
+    tinymce.init({
+    selector: "div.edit",
+    height: 768,
+    add_unload_trigger: false,
+    schema: "html5",
+    inline: true,
+    menubar: false,
+    fixed_toolbar_container: "#edit",
+    toolbar: "save | undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+    statusbar: false,
+    plugins: "save",
+    save_enablewhendirty: true,
+	    save_onsavecallback: function() {
+			//jQuery.fx.off = true;
+			$.ajax({ 
+			 type:"POST", 
+			 url:"/topics/<%= @topic.id %>", 
+			 data:"text="+encodeURIComponent($(".edit").html()),
+			 success:function(){tinymce.close()},
+			 success:function(){$(".text-success").fadeIn(2000).fadeOut(4000)},
+			 //success:function(){$(".titlecontainer").toggleClass("text-success")},
+			 error:function(){$(".text-danger").toggle(200)}
+			 }); 
+			 return false;     
+	    }
+    });
+
+
+  </script>	
+
+  <!--Controls the ability to edit the title of the article inline. -->
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		$.fn.editable.defaults.mode = 'inline';
+  		$('#title').editable('option', 'validate', function(v) {
+  			if(!v) return 'Really?  It has to have a name.';
+  		});
+
+  		$('#title').editable({
+  			
+
+  		  error: function(response, newValue) {
+        	  if(response.status == 'error') return response.msg; //msg will be shown in editable form
+  		  }
+
+  		});
+
+  	});
+		
+
+  </script>
+
+
+	<div class="row row-md-height">
+
+		<!--x-editable version -->
+
+		
+		
+		<span id="titlecontainer" class="col-md-6 lead">
+			<!--Shows only when you save the article's text -->
+
+				<a href="#" id="title" data-type="text" data-inputclass="form-control input-lg" data-pk="<%= @topic.id %>" data-url="/topics/title/<%= @topic.id %>" data-title="<%= @topic.title %>" >
+
+					<%=h @topic.title %></a>
+		
+		<span class="small text-success" style="display:none">Saved</span>
+		<span class="small text-danger" style="display:none">The Save Operation Failed!  You should track Mensel down and blame him for everything.</span>
+		</span>	
+
+		
+		
+	</div>
+
+	<div class="row">
+
+		<div class="col-xs-12 col-md-6">
+			<% @attachments.each do |file| %>
+				<ul>Download: <a href="/files/<%= file.path %>"><%=h file.name %></a></ul>
+			<% end %>
+		</div>
+
+	</div>
+<!-- This is for viewing the revision history.  It has a bug that we decided not to fix, but is left here for historical purposes.
+<div class="panel-group" id="accordion">
+		  <div class="panel panel-default">
+		    <div class="panel-heading">
+		      <h4 class="panel-title">
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" class="collapsed">
+		          Show History
+		        </a>
+		      </h4>
+		    </div>
+		    <div id="collapseOne" class="panel-collapse collapse out">
+		      <div class="panel-body">
+		        	<div class="small">
+		        		<% @audits.each do |audit| %>
+				  			<ul>
+				  				<a class="small" data-toggle="modal" data-target="#auditModal" data-body="<%=audit.body %>">
+				  					Revision ID: <%= audit.id %>  <%= audit.username %> revised this document at timestamp <%= audit.created_at.localtime %>
+				  				</a>
+				  				
+									<div class="modal fade" id="auditModal">
+										  <div class="modal-dialog modal-lg">
+										    <div class="modal-content">
+										      <div class="modal-header">
+										        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+										        <h3 class="modal-title">Revision ID: <%=audit.id %> created at <%= audit.created_at.localtime %> by <%=audit.username %></h3>
+										      </div>
+										      <div class="modal-body">
+
+										        
+										        <p><%= audit.body %></p>
+										    	
+										      </div>
+										      <div class="modal-footer">
+										        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+										     
+										      </div>
+										    </div><!++ /.modal-content ++>
+										  </div><!++ /.modal-dialog ++>
+										</div><!++ /.modal ++>
+				  			</ul>
+				  		<% end %>
+		  			</div>
+		      </div>
+		    </div>
+		  </div>
+	</div>
+-->
+	<div class="well well-lg">
+		 
+
+		  <div class="edit">
+		  	<%= @topic.body %></div>
+		
+	</div>
+
+</div>

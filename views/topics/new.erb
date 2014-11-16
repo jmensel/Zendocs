@@ -1,0 +1,55 @@
+
+
+<div class="container-fluid">
+  <!--Display an alert on save -->
+  
+  <!-- Fire up our editor -->
+  <script type="text/javascript" src="/js/tinymce/js/tinymce/tinymce.min.js"></script>
+  <script type="text/javascript">
+    tinymce.init({
+    selector: "div.edit",
+    height: 768,
+    add_unload_trigger: false,
+    schema: "html5",
+    inline: true,
+    menubar: false,
+    fixed_toolbar_container: "#edit",
+    toolbar: "save | undo redo | styleselect | bold italic strikethrough | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+    statusbar: false,
+    plugins: "save",
+    save_enablewhendirty: true,
+	    save_onsavecallback: function() {
+			$.ajax({ 
+			 type:"POST", 
+			 url:"/topics/<%= @topic.id %>", 
+			 data:"text="+encodeURIComponent($(".edit").html()),
+			 success:function(){tinymce.close()},
+			 success:function(){$(".bg-success").toggle(10).toggle(3000)},
+			 error:function(){$(".alert-danger").toggle(200)}
+			 }); 
+			 return false;     
+	    }
+    });
+  </script>	
+	
+	<div class="row">
+		<div class="col-xs-3 bg-success" style="display:none">Saved</div>
+		<div class="col-xs-6 col-md-4 lead" ng-controller="TypeAheadController">
+	   		Create a topic, or select an existing one:  <typeahead items="items" prompt="<%= @topic.title %>" title="title" id="id" model="name" on-select="onItemSelected()" />
+		</div>
+		
+		<div class="col-xs-6 col-md-4 alert alert-danger" style="display:none">The Save Operation Failed!  You should track Mensel down and blame him for everything!</div>
+	</div>
+
+	</div>
+
+	<div class="well well-lg">
+		 
+
+		  <div class="edit">
+		  	<%= @topic.body %>
+		  </div>
+		
+	</div>
+
+</div>

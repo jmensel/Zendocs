@@ -1,0 +1,71 @@
+<% if @openmodal == 'yes' %>
+
+<script type="text/javascript">
+    $(window).load(function(){
+        $('#noticeModal').modal('show');
+    });
+</script>
+
+		<div class="modal fade" id="noticeModal">
+		  <div class="modal-dialog modal-md">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h3 class="modal-title">Please review the about page!</h3>
+		      </div>
+		      <div class="modal-body">
+		        <p class="lead">The <a href="/about">About</a> page contains documentation on how to use this app.  </p>
+		        <p> Modal Dialog.  Put your important info here..</p>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		     
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+<% end %>
+
+<div class="container" ng-controller="TypeAheadController">
+	
+	<h3 class="lead text-center">Search for a topic, or create a new topic.</h3>
+	
+	   <typeahead name="title" items="items" prompt="Search or create by article title" title="title" id="id" model="name" on-select="onItemSelected()" />
+
+</div>
+
+<div class="container">
+
+	<h3 class="lead text-center">Or, List by Forum</h3>
+	<form class="form-inline text-center" role="form" action="/forum" method="post">
+		
+		<div class="form-group has-success">
+		<select class="form-control" name="forumid">
+			<% @forums.each do |forum| %>
+				<option value=<%= forum.fid %> <% if forum.fid == @forum.fid %> selected="selected" id="inputSuccess1"<% end %> > <%=h forum.name %> </option>
+			<% end %>
+		</select>
+		</div>	
+	<button type="submit" class="btn btn-default" value="submit">Submit</button>
+	</form>	
+
+
+<!--
+	<% if @forum != nil %>
+		<p class="lead">Forum: <%= @forum.name %></p>
+	<% end %>		
+-->
+
+<table class="table table-striped">
+<% @topics.each do |topic| %>
+	<tr>
+		<td><a href="/topics/<%= topic.id %>"><%=h topic.title %></a></td>
+	</tr>	
+	
+<% end %>
+</table>
+
+</ul>
+
+</div>

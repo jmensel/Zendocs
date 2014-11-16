@@ -1,0 +1,25 @@
+<!--AngularJS uses this template to render the typeahead search box-->
+<!-- Do not taunt happy fun ball. -->
+
+<form id="titleform" class="form" role="form">
+	<div class="form-group">
+		<input name="title" type="search" autofocus="autofocus" class="form-control" ng-model="model" placeholder="{{prompt}}" ng-keydown="selected=false" autocomplete="off" required>
+		<!--
+		<button type="submit" class="btn btn-default" value="submit">Create As New Topic</button>\
+		-->
+	<!--</div>-->
+
+	<div class="items" ng-hide="!model.length || selected">
+
+		<div class="item" ng-repeat="item in items | filter:model  track by $index" ng-click="handleSelection(item[title])" style="cursor:pointer" ng-class="{active:isCurrent($index)}" ng-mouseenter="setCurrent($index)">
+			<ul class="lead"><a href="/topics/{{item[id]}}">{{item[title]}}</ul></a>
+		</div>
+		<!-- <button type="submit" class="btn btn-default" value="submit">Create Topic &quot{{model}}&quot</button> -->
+	</div>
+
+	<!--<button type="submit" class="btn btn-default" value="submit">Create This As A New Topic</button>
+	-->
+	</div>
+
+	
+</form>   

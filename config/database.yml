@@ -1,0 +1,23 @@
+development:
+ adapter:  postgresql
+ host:     localhost
+ username: docs
+ password: bigscarypassword
+ database: docsdev
+ encoding: utf8
+
+test:
+ adapter:  postgresql
+ host:     localhost
+ username: docs
+ password: bigscarypassword
+ database: docstest
+ encoding: utf8
+
+production:
+ adapter:  postgresql
+ host:     localhost
+ username: docs
+ password: vbigscarypassword
+ database: docs
+ encoding: utf8
