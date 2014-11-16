@@ -2,13 +2,11 @@
 
 This little app was born of a problem:  my team and I were migrating all of our ticketing and documentation stuff out of Zendesk and into other systems.  This was a pity, because Zendesk is awesome, and I was sad to see it go.
 
-Anyway, the point of this app is to get your forum articles out of Zendesk and into a little-bitty web app that you can use to manipulate the docs with some bare-bones editing and search features.  It was never intended to be a complete CMS, or even a feature-complete app, just a tidy way of moving stuff out of Zendesk.
+Anyway, the point of this app is to get your forum articles out of Zendesk and into a little-bitty web app that you can use to manipulate the docs with some bare-bones editing and search features.  It was never intended to be a complete CMS, or even a feature-complete app, just a tidy way of addressing the task at hand.
 
 Please note that, strictly speaking, I'm a sysadmin, not a developer, so you may see some code that you find silly, simplistic, or verbose to the point of lunacy.  This is by design - I have to keep things simple, or it all runs off the rails :-)
 
-The versioning feature in particular is dynfunctional, and I suggest that you disable it.
-
-The rest of the app works fine, and has survived a years worth of 25-odd nerds beating on it, so it's somewhat robust when used as directed.
+That said, the app works fine, and has survived a year's worth of 25-odd nerds beating on it, so it's pretty robust when used as directed.
   
 # Setup
 
@@ -36,7 +34,7 @@ To fire up a local copy, we'll use shotgun.  Shotgun's nice, as we don't have to
 	http://localhost:9393
 
 # Postgres:
-	Setting up a postgres instance is beyond the scope of what I'll document here.  So far as the app is concerned, just look in *database.yml* for all the usual properties that need to be set.
+Setting up a postgres instance is beyond the scope of what I'll document here.  So far as the app is concerned, just look in *database.yml* for all the usual properties that need to be set.
 
 
 # Seeding the database (Which will download EVERYTHING from Zendesk, and may take a while):
@@ -58,7 +56,7 @@ To update the database, download new attachments, and sync everything up with Ze
 # Authentication
 This app was designed to fit an environment that used (of all things)  Basic Authentication, which was connected to PAM, which was in turn connected to Active Directory via Centrify.  This worked surprisingly well, and despite it's limitations was fine for this very limited use case.
 
-If you deploy this app in a production environment, you'll need to fancy up your Apache configs to use all of these things.  Don't blindly copy this into your Apache config file - I'm putting it here for example purposes only.  In this case, we're using Mod_Passenger to do ruby duties.  
+If you deploy this app in a production environment, you'll need to fancy up your Apache configs to use all of these things.  The app will use plain old *.htpasswd* based auth without trouble - I expect that most of you don't have the slightest desire to integrate it with Active Directory.  Don't blindly copy this into your Apache config file - I'm putting it here for example purposes only.  In this case, we're using Mod_Passenger to do ruby duties.  
 
 # This config may drink all of the beer in your fridge!
 # Don't use it blindly!  Seriously!
