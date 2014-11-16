@@ -81,3 +81,10 @@ If you deploy this app in a production environment, you'll need to fancy up your
                 require valid-user
         </Directory>
 
+# audit_fetch.rb
+
+You may have noticed (or not) a file called audit_fetch.rb.  This odd little thing was designed for a very very specific problem:  I had to migrate a bunch of data out of Zendesk tickets and into an application called ConnectWise.  Never mind why - it's a long story.  
+
+This script fetches all of the tickets from a given Zendesk account, converts them into plaintext in various horrible ways, and turns *that* it into a sane CSV file (inasmuch as any CSV can be called *sane*).  It also fetches any files that are attached to the tickets, downloads them to a folder, and then adds a link in the text that points at a UNC path (that's a windows network path, as in \\server\share).  This is an awful dirty hack, but it was necessary at the time.  
+
+I've included this mostly as a curiousity, and so that years from now I can look back at it and wonder what the hell I was thinking :-)
